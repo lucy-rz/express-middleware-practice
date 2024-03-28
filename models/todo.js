@@ -8,7 +8,14 @@ const todos = [
     getAll,
     getOne,
     create,
-    deleteOne
+    deleteOne,
+    update
+};
+
+function update(id, updatedTodo) {
+    id = parseInt(id);
+    const todo = todos.find(todo => todo.id === id);
+    Object.assign(todo, updatedTodo);
 };
 
 function deleteOne(id) {

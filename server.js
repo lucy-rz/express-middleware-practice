@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var methodOverride = require("method-override");
 
 var indexRouter = require('./routes/index');
 var todosRouter = require('./routes/todos');
@@ -17,7 +18,6 @@ app.set('view engine', 'ejs');
 // app.use([starts with path]<middleware fn> [, <middleware fn>])
 
 app.use(function(req, res, next){
-    console.log("hello world");
     // add a time property to the res.locals object
     // the time property will then be accessible 
     res.locals.time = new Date().toLocaleTimeString()
@@ -36,6 +36,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // If the request is for a static asset, return the file
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride("_method"));
+
 
 // The first arg is the "starts with" path
 // The path within the route modules are appended to the starts with paths
